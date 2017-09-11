@@ -7,14 +7,12 @@ const VisionApi = VisionHelper();
 
 app.get('/key', (req, res) => {
   // Make the OAuth call to generate a token
-  VisionApi.generateToken()
-    .then(body => {
-      const response = JSON.parse(body);
-      console.log(response.access_token);
-    })
-    .catch(err => {
-      console.log('Error happend', err);
-    });
+  VisionApi.getAccessToken(({ success, access_token }) => {
+    if (success) {
+      console.log(access_token);
+    }
+  });
+  res.status(200).send(true);
 });
 
 app.listen(8080, () => {

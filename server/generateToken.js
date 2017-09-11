@@ -8,9 +8,8 @@ function VisionHelper() {
   const private_key =
     process.env.EINSTEIN_VISION_PRIVATE_KEY ||
     fs.readFileSync(join(__dirname, '../key.pem'));
-
   const account_id = process.env.EINSTEIN_VISION_ACCOUNT_ID;
-
+  let access_token = undefined;
   const reqUrl = `${url}v2/oauth2/token`;
 
   // JWT payload
@@ -42,12 +41,29 @@ function VisionHelper() {
     )}`
   };
   // Possible rewite to use async defer
-  function generateToken() {
+  function _generateToken() {
     return request(options);
   }
 
+  function getAccessToken(cb) {
+    if (access_token === undefined) {
+      _generateToken()
+        .then(body => {
+          const response = JSON.parse(body);
+          access_token = response.access_token;
+          cb({ success: true, access_token });
+        })
+        .catch(err => {
+          console.log('Error happend', err);
+          cb({ success: false, access_token });
+        });
+    } else {
+      cb({ success: false, access_token });
+    }
+  }
+
   return {
-    generateToken
+    getAccessToken
   };
 }
 
