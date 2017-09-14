@@ -1,9 +1,12 @@
 require('dotenv').config();
-import express from 'express';
+import express, { static } from 'express';
+import { join } from 'path';
 import VisionHelper from './generateToken';
 
 const app = express();
 const VisionApi = VisionHelper();
+
+app.use('/resources', static(join(__dirname, '../resources')));
 
 app.get('/key', (req, res) => {
   // Make the OAuth call to generate a token

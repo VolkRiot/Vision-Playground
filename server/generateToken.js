@@ -28,7 +28,6 @@ function VisionHelper() {
 
   // Sign the JWT payload
   const assertion = jwt.sign(rsa_payload, private_key, rsa_options);
-
   const options = {
     url: reqUrl,
     method: 'POST',
