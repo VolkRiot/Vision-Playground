@@ -1,8 +1,9 @@
-require('dotenv').config();
+import { config } from 'dotenv';
 import express from 'express';
 import { join } from 'path';
 import VisionHelper from './VisionHelper';
 
+config();
 const app = express();
 const VisionApi = VisionHelper();
 
