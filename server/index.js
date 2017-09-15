@@ -9,14 +9,10 @@ const VisionApi = VisionHelper();
 
 app.use('/resources', express.static(join(__dirname, '../resources')));
 
-app.get('/key', (req, res) => {
+app.get('/key', async (req, res) => {
   // Make the OAuth call to generate a token
-  VisionApi.getAccessToken(({ success, access_token }) => {
-    if (success) {
-      console.log(access_token);
-    }
-  });
-  res.status(200).send(true);
+  const { success, token } = await VisionApi.getAccessToken();
+  if (success) res.status(200).send(token);
 });
 
 app.listen(8080, () => {
