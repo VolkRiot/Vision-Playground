@@ -44,7 +44,7 @@ function VisionHelper() {
     return request(options);
   }
 
-  async function getAccessToken(cb) {
+  async function getAccessToken() {
     if (access_token === undefined) {
       try {
         const token = await _generateToken().then(body => {

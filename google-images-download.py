@@ -4,13 +4,13 @@ import os
 import urllib2
 
 # This list is used to search keywords. You can edit this list to search for google images of your choice. You can simply add and remove elements of the list.
-search_keyword = ['Yosemite', 'Grand Canyon', 'Yellowstone']
+search_keyword = sys.argv[1:len(sys.argv) - 1]
 
 # This list is used to further add suffix to your search term. Each element of the list will help you download 100 images. First element is blank which denotes that no suffix is added to the search keyword of the above list. You can edit the list by adding/deleting elements from it.So if the first element of the search_keyword is 'Australia' and the second element of keywords is 'high resolution', then it will search for 'Australia High Resolution'
 keywords = ['']
 
 # Set total number of images to donwload per item here
-total_images = 10
+total_images = int(sys.argv[len(sys.argv) - 1])
 
 #Downloading entire Web Document (Raw Page Content)
 def download_page(url):
