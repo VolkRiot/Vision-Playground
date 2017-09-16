@@ -81,10 +81,11 @@ while i<len(search_keyword):
     print ("Evaluating...")
     search_keywords = search_keyword[i]
     search = search_keywords.replace(' ','%20')
+    sub_directory = "_".join(search_keyword[0:2]) + "_training_data"
 
      #make a search keyword  directory
     try:
-        os.mkdir("resources/" + search_keywords)
+        os.makedirs("resources/%s/%s" %(sub_directory, search_keyword[i]))
     except OSError, e:
         if e.errno != 17:
             raise
@@ -126,7 +127,7 @@ while i<len(search_keyword):
         try:
             req = Request(items[k], headers={"User-Agent": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
             response = urlopen(req,None,15)
-            output_file = open("resources/" + search_keywords + "/"+str(k+1)+".jpg",'wb')
+            output_file = open("resources/" + sub_directory + "/" + search_keywords + "/"+str(k+1)+".jpg",'wb')
 
             data = response.read()
             output_file.write(data)
