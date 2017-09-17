@@ -21,6 +21,8 @@
   },
   "scripts": {
     "dev:start": "nodemon --exec babel-node server/",
-    "clear:images": "rm -rf rawImages/*"
+    "clear:images": "rm -rf rawImages/*",
+    "clear:resources": "rm -rf resources/*",
+    "clear:all": "yarn clear:images && yarn clear:resources"
   }
 }
