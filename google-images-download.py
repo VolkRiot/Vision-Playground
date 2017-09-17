@@ -2,6 +2,7 @@ import time
 import sys
 import os
 import urllib2
+import shutil
 
 # This list is used to search keywords. You can edit this list to search for google images of your choice. You can simply add and remove elements of the list.
 search_keyword = sys.argv[1:len(sys.argv) - 1]
@@ -120,6 +121,7 @@ while i<len(search_keyword):
 
     k=0
     errorCount=0
+    base_path = "resources/" + sub_directory
     while(k<len(items)):
         from urllib2 import Request,urlopen
         from urllib2 import URLError, HTTPError
@@ -127,7 +129,7 @@ while i<len(search_keyword):
         try:
             req = Request(items[k], headers={"User-Agent": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
             response = urlopen(req,None,15)
-            output_file = open("resources/" + sub_directory + "/" + search_keywords + "/"+str(k+1)+".jpg",'wb')
+            output_file = open(base_path + "/" + search_keywords + "/"+str(k+1)+".jpg",'wb')
 
             data = response.read()
             output_file.write(data)
@@ -159,6 +161,8 @@ while i<len(search_keyword):
 print("\n")
 print("Everything downloaded!")
 print("\n"+str(errorCount)+" ----> total Errors")
+
+shutil.make_archive("resources/" + sub_directory, 'zip', 'resources/', sub_directory);
 
 #----End of the main program ----#
 
