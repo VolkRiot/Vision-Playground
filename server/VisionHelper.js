@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import request from 'request-promise';
 import fs from 'fs';
 import { join } from 'path';
+import { spawn } from 'child_process';
 
 function VisionHelper() {
   const url = process.env.EINSTEIN_VISION_URL;
