@@ -27,7 +27,7 @@ def download_page(url):
             respData = str(resp.read())
             return respData
         except Exception as e:
-            print(str(e))
+            pass
     else:                        #If the Current Version of Python is 2.x
         import urllib2
         try:
@@ -78,8 +78,8 @@ i= 0
 while i<len(search_keyword):
     items = []
     iteration = "Item no.: " + str(i+1) + " -->" + " Item name = " + str(search_keyword[i])
-    print (iteration)
-    print ("Evaluating...")
+    # print (iteration)
+    # print ("Evaluating...")
     search_keywords = search_keyword[i]
     search = search_keywords.replace(' ','%20')
     sub_directory = "_".join(search_keyword[0:2]) + "_training_data"
@@ -102,8 +102,8 @@ while i<len(search_keyword):
         items = items + (_images_get_all_items(raw_html))
         j = j + 1
     #print ("Image Links = "+str(items))
-    print ("Total Image Links = "+str(len(items)))
-    print ("\n")
+    # print ("Total Image Links = "+str(len(items)))
+    # print ("\n")
 
 
     #This allows you to write all the links into a test file. This text file will be created in the same directory as your code. You can comment out the below 3 lines to stop writing the output to the text file.
@@ -113,8 +113,8 @@ while i<len(search_keyword):
 
     t1 = time.time()
     total_time = t1-t0   #Calculating the total time required to crawl, find and download all the links of 60,000 images
-    print("Total time taken: "+str(total_time)+" Seconds")
-    print ("Starting Download...")
+    # print("Total time taken: "+str(total_time)+" Seconds")
+    # print ("Starting Download...")
 
     ## To save imges to the same directory
     # IN this saving process we are just skipping the URL if there is any error
@@ -135,35 +135,35 @@ while i<len(search_keyword):
             output_file.write(data)
             response.close();
 
-            print("completed ====> "+str(k+1))
+            # print("completed ====> "+str(k+1))
 
             k=k+1;
 
         except IOError:   #If there is any IOError
 
             errorCount+=1
-            print("IOError on image "+str(k+1))
+            # print("IOError on image "+str(k+1))
             k=k+1;
 
         except HTTPError as e:  #If there is any HTTPError
 
             errorCount+=1
-            print("HTTPError"+str(k))
+            # print("HTTPError"+str(k))
             k=k+1;
         except URLError as e:
 
             errorCount+=1
-            print("URLError "+str(k))
+            # print("URLError "+str(k))
             k=k+1;
 
     i = i+1
 
-print("\n")
-print("Everything downloaded!")
-print("\n"+str(errorCount)+" ----> total Errors")
+# print("\n")
+# print("Everything downloaded!")
+# print("\n"+str(errorCount)+" ----> total Errors")
 
-shutil.make_archive("resources/" + sub_directory, 'zip', 'resources/', sub_directory);
-
+zip_path = shutil.make_archive("resources/" + sub_directory, 'zip', 'resources/', sub_directory);
+sys.stdout.write(sub_directory + ".zip")
 #----End of the main program ----#
 
 

@@ -30,6 +30,10 @@ app.post('/scrape', (req, res) => {
     ...searchTerms,
     imagesPer
   ]);
+
+  process.stdout.on('data', data => {
+    res.status(200).send(`resources/${data}`);
+  });
 });
 
 app.listen(8080, () => {
