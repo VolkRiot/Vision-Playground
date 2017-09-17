@@ -13,6 +13,9 @@ keywords = ['']
 # Set total number of images to donwload per item here
 total_images = int(sys.argv[len(sys.argv) - 1])
 
+path_for_raw_images = "rawImages"
+path_for_archive_files = "resources"
+
 #Downloading entire Web Document (Raw Page Content)
 def download_page(url):
     version = (3,0)
@@ -86,7 +89,7 @@ while i<len(search_keyword):
 
      #make a search keyword  directory
     try:
-        os.makedirs("resources/%s/%s" %(sub_directory, search_keyword[i]))
+        os.makedirs("%s/%s/%s" %(path_for_raw_images, sub_directory, search_keyword[i]))
     except OSError, e:
         if e.errno != 17:
             raise
@@ -121,7 +124,7 @@ while i<len(search_keyword):
 
     k=0
     errorCount=0
-    base_path = "resources/" + sub_directory
+    keyword_base_path = path_for_raw_images + "/" + sub_directory
     while(k<len(items)):
         from urllib2 import Request,urlopen
         from urllib2 import URLError, HTTPError
@@ -129,7 +132,7 @@ while i<len(search_keyword):
         try:
             req = Request(items[k], headers={"User-Agent": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
             response = urlopen(req,None,15)
-            output_file = open(base_path + "/" + search_keywords + "/"+str(k+1)+".jpg",'wb')
+            output_file = open(keyword_base_path + "/" + search_keywords + "/"+str(k+1)+".jpg",'wb')
 
             data = response.read()
             output_file.write(data)
@@ -162,8 +165,8 @@ while i<len(search_keyword):
 # print("Everything downloaded!")
 # print("\n"+str(errorCount)+" ----> total Errors")
 
-zip_path = shutil.make_archive("resources/" + sub_directory, 'zip', 'resources/', sub_directory);
-sys.stdout.write(sub_directory + ".zip")
+zip_path = shutil.make_archive(("%s/%s/" %(path_for_archive_files, sub_directory)), 'zip', ("%s/%s" %(path_for_raw_images, sub_directory)));
+sys.stdout.write("%s.zip" %sub_directory)
 #----End of the main program ----#
 
 
