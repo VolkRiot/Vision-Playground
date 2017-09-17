@@ -62,8 +62,34 @@ function VisionHelper() {
     }
   }
 
+  async function submitTrainingUrl(url) {
+    if (!access_token) {
+      var { success, token } = await getAccessToken();
+      if (!success) return;
+    }
+
+    var options = {
+      method: 'POST',
+      url: 'https://api.einstein.ai/v2/vision/datasets/upload/sync',
+      headers: {
+        'content-type':
+          'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW',
+        'cache-control': 'no-cache',
+        authorization: `Bearer ${access_token}`
+      },
+      formData: {
+        type: 'image',
+        path: url
+      }
+    };
+    return await request(options).then(body => {
+      return JSON.parse(body);
+    });
+  }
+
   return {
-    getAccessToken
+    getAccessToken,
+    submitTrainingUrl
   };
 }
 

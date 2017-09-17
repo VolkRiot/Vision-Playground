@@ -36,6 +36,11 @@ app.post('/scrape', (req, res) => {
   });
 });
 
+app.post('/ai/submit', async (req, res) => {
+  const response = await VisionApi.submitTrainingUrl(req.body.url);
+  res.status(200).send(response);
+});
+
 app.listen(8080, () => {
   console.log('Server started and listening on 8080');
 });
