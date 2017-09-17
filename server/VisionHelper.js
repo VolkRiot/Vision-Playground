@@ -46,19 +46,15 @@ function VisionHelper() {
   }
 
   async function getAccessToken() {
-    if (access_token === undefined) {
-      try {
-        const token = await _generateToken().then(body => {
-          const response = JSON.parse(body);
-          access_token = response.access_token;
-          return access_token;
-        });
-        return { success: true, token };
-      } catch (err) {
-        return { success: false };
-      }
-    } else {
-      return { success: true, token: access_token };
+    try {
+      const token = await _generateToken().then(body => {
+        const response = JSON.parse(body);
+        access_token = response.access_token;
+        return access_token;
+      });
+      return { success: true, token };
+    } catch (err) {
+      return { success: false };
     }
   }
 

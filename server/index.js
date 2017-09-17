@@ -19,7 +19,7 @@ app.use('/resources', express.static(join(__dirname, '../resources')));
 app.get('/key', async (req, res) => {
   // Make the OAuth call to generate a token
   const { success, token } = await VisionApi.getAccessToken();
-  if (success) res.status(200).send(token);
+  if (success) res.status(200).send({ success, message: 'Token loaded' });
 });
 
 app.post('/scrape', (req, res) => {
