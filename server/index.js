@@ -32,7 +32,7 @@ app.post('/scrape', (req, res) => {
   ]);
 
   process.stdout.on('data', data => {
-    res.status(200).send(`resources/${data}`);
+    res.status(200).send(`${req.get('host')}/resources/${data}`);
   });
 });
 
