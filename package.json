@@ -20,6 +20,7 @@
     "nodemon": "^1.12.0"
   },
   "scripts": {
-    "dev:start": "nodemon --exec babel-node server/"
+    "dev:start": "nodemon --exec babel-node server/",
+    "clear:images": "rm -rf rawImages/*"
   }
 }
